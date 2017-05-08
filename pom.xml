@@ -42,6 +42,7 @@
                 <configuration>
                     <autoVersionSubmodules>true</autoVersionSubmodules>
                     <enableSshAgent>true</enableSshAgent>
+                    <enableFeatureVersions>true</enableFeatureVersions>
                     <noDeploy>true</noDeploy>
                     <pullDevelop>true</pullDevelop>
                     <pullMaster>true</pullMaster>
