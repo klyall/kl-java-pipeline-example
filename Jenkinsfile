@@ -54,10 +54,17 @@ pipeline {
                   allowMissing: false,
                   alwaysLinkToLastBuild: false,
                   keepAll: true,
-                  reportDir: 'coverage',
+                  reportDir: 'target/coverage/unit-tests',
                   reportFiles: 'index.html',
-                  reportName: "RCov Report"
+                  reportName: "Unit Testing Coverage Report"
             ])
-        }
+            publishHTML (target: [
+                  allowMissing: false,
+                  alwaysLinkToLastBuild: false,
+                  keepAll: true,
+                  reportDir: 'target/coverage/integration-tests',
+                  reportFiles: 'index.html',
+                  reportName: "Integration Testing Coverage Report"
+            ])        }
     }
 }
