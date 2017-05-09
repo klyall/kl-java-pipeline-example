@@ -6,7 +6,7 @@ pipeline {
         }
     }
     environment {
-        MAVEN_OPTS = "${env.JAVA_OPTS}""
+        MAVEN_OPTS = "${env.JAVA_OPTS}"
     }
     stages {
         stage('Clean') {
