@@ -37,7 +37,9 @@ pipeline {
                 sh 'mvn install -Dmaven.test.skip=true'
             }
         }
-        stage('Report'){
+    }
+    post {
+        always {
             steps {
                 junit 'target/surefire-reports/**/*.xml'
                 archiveArtifacts 'target/*.jar'
