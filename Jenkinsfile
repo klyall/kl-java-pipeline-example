@@ -43,7 +43,7 @@ pipeline {
             junit 'target/surefire-reports/**/*.xml'
             archiveArtifacts 'target/*.jar'
             publishHTML (target: [
-                 allowMissing true
+                 allowMissing: true
                  reportDir 'target/pit-reports/**/*'
                  reportFiles 'index.html'
                  reportName 'Mutation Testing'
