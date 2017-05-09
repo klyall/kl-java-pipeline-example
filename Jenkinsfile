@@ -6,8 +6,7 @@ pipeline {
         }
     }
     environment {
-        MAVEN_OPTS = '-Djava.awt.headless=true -Dhttp.proxySet=true -Dhttps.proxySet=true -Dhttp.useProxy=true -Dhttps.useProxy=true -Djava.net.useSystemProxies=true -Dhttp.proxyHost=172.16.0.40 -Dhttp.proxyPort=3128 -Dhttps.proxyHost=172.16.0.40 -Dhttps.proxyPort=3128 -Dhttp.nonProxyHosts=*tfc.sicloud.atos.net'
-        JAVA_OPTS = '-Djava.awt.headless=true -Dhttp.proxySet=true -Dhttps.proxySet=true -Dhttp.useProxy=true  -Dhttps.useProxy=true -Djava.net.useSystemProxies=true -Dhttp.proxyHost=172.16.0.40 -Dhttp.proxyPort=3128 -Dhttps.proxyHost=172.16.0.40 -Dhttps.proxyPort=3128 -Dhttp.nonProxyHosts=nexus-tfc.sicloud.atos.net'
+        MAVEN_OPTS = env.JAVA_OPTS
     }
     stages {
         stage('Clean') {
@@ -30,7 +29,7 @@ pipeline {
         }
         stage('Static Analysis'){
             steps {
-                sh 'mvn sonar:sonar  -Dsonar.host.url=' + env.SONAR_UR
+                sh 'mvn sonar:sonar  -Dsonar.host.url=' + env.SONAR_URL
             }
         }
         stage('Publish'){
@@ -42,6 +41,12 @@ pipeline {
             steps {
                 junit 'target/surefire-reports/**/*.xml'
                 archiveArtifacts 'target/*.jar'
+                publishHtml {
+                     reportName 'Mutation Testing'
+                     reportFiles 'index.html'
+                     reportDir 'target/pit-reports/**/*'
+                     allowMissing true
+                }
             }
         }
     }
