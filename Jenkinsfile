@@ -24,12 +24,12 @@ pipeline {
         }
         stage('Mutation Test'){
             steps {
-                sh 'mvn org.pitest:pitest-maven:mutationCoverage'
+                sh 'mvn org.pitest:pitest-maven:mutationCoverage -DtimestampedReports=false'
             }
         }
         stage('Static Analysis'){
             steps {
-                sh "mvn sonar:sonar  -Dsonar.host.url=${env.SONAR_URL}"
+                sh "mvn sonar:sonar -Dsonar.host.url=${env.SONAR_URL}"
             }
         }
         stage('Publish'){
@@ -44,11 +44,11 @@ pipeline {
             archiveArtifacts 'target/*.jar'
             publishHTML (target: [
                  allowMissing: true,
-                  alwaysLinkToLastBuild: true,
-                  keepAll: true,
-                  reportDir: 'target/pit-reports/**/*',
+                 alwaysLinkToLastBuild: true,
+                 keepAll: true,
+                 reportDir: 'target/pit-reports',
                  reportFiles: 'index.html',
-                 reportName: 'Mutation Testing'
+                 reportName: 'PIT Report'
             ])
             publishHTML (target: [
                   allowMissing: false,
