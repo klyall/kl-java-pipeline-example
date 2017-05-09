@@ -17,27 +17,21 @@ pipeline {
                 sh 'mvn clean'
             }
         }
-
-        stage('Test') {
-            parallel (
-                test: {
+        stage('Unit Test'){
                     steps {
                         sh 'mvn verify'
                     }
-                },
-                mutation: {
+        }
+        stage('Mutation Test'){
                     steps {
                         sh 'mvn org.pitest:pitest-maven:mutationCoverage -DtimestampedReports=false'
                     }
-                },
-                static: {
+        }
+        stage('Static Analysis'){
                     steps {
                         sh "mvn sonar:sonar -Dsonar.host.url=${env.SONAR_URL}"
                     }
                 }
-            )
-        }
-
         stage('Publish'){
             steps {
                 sh 'mvn install -Dmaven.test.skip=true'
@@ -48,7 +42,7 @@ pipeline {
         always {
             junit 'target/surefire-reports/**/*.xml'
             archiveArtifacts 'target/*.jar'
-            PitPublisher (target: [
+            step([$class: 'PitPublisher',
                 mutationStatsFile: 'target/pit-reports/mutations.xml',
                 minimumKillRatio: 50.00,
                 killRatioMustImprove: true
