@@ -21,6 +21,12 @@ public class Greeter {
             messageName = name.get();
         }
 
+        untestableMethod();
+
         return String.format("Hello %s!", messageName);
+    }
+
+    private void untestableMethod() {
+        System.out.println("Not doing anything really but will show difference in coverage when using mutation testing");
     }
 }
