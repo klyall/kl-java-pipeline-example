@@ -18,26 +18,24 @@ pipeline {
             }
         }
 
-        parallel test: {
-            stage('Test'){
-                steps {
-                    sh 'mvn verify'
+        stage('Test') {
+            parallel (
+                test: {
+                    steps {
+                        sh 'mvn verify'
+                    }
+                },
+                mutation: {
+                    steps {
+                        sh 'mvn org.pitest:pitest-maven:mutationCoverage -DtimestampedReports=false'
+                    }
+                },
+                static: {
+                    steps {
+                        sh "mvn sonar:sonar -Dsonar.host.url=${env.SONAR_URL}"
+                    }
                 }
-            }
-        },
-        mutation: {
-            stage('Mutation Test'){
-                steps {
-                    sh 'mvn org.pitest:pitest-maven:mutationCoverage -DtimestampedReports=false'
-                }
-            }
-        },
-        static: {
-            stage('Static Analysis'){
-                steps {
-                    sh "mvn sonar:sonar -Dsonar.host.url=${env.SONAR_URL}"
-                }
-            }
+            )
         }
 
         stage('Publish'){
