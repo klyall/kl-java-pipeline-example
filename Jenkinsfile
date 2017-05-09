@@ -40,16 +40,22 @@ pipeline {
     }
     post {
         always {
-            steps {
-                junit 'target/surefire-reports/**/*.xml'
-                archiveArtifacts 'target/*.jar'
-                publishHtml {
-                     reportName 'Mutation Testing'
-                     reportFiles 'index.html'
-                     reportDir 'target/pit-reports/**/*'
-                     allowMissing true
-                }
-            }
+            junit 'target/surefire-reports/**/*.xml'
+            archiveArtifacts 'target/*.jar'
+            publishHTML (target: [
+                 allowMissing true
+                 reportDir 'target/pit-reports/**/*'
+                 reportFiles 'index.html'
+                 reportName 'Mutation Testing'
+            ])
+            publishHTML (target: [
+                  allowMissing: false,
+                  alwaysLinkToLastBuild: false,
+                  keepAll: true,
+                  reportDir: 'coverage',
+                  reportFiles: 'index.html',
+                  reportName: "RCov Report"
+            ])
         }
     }
 }
