@@ -8,7 +8,6 @@ pipeline {
     environment {
         MAVEN_OPTS = "${env.JAVA_OPTS}"
     }
-    parallel {}
     stages {
         stage('Clean') {
             steps {
