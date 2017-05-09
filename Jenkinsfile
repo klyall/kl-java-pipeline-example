@@ -12,6 +12,7 @@ pipeline {
     stages {
         stage('Clean') {
             steps {
+                sh 'env | sort'
                 sh 'mvn --version'
                 sh 'java -version'
                 sh 'mvn clean'
@@ -29,7 +30,7 @@ pipeline {
         }
         stage('Static Analysis'){
             steps {
-                sh 'mvn sonar:sonar'
+                sh 'mvn sonar:sonar  -Dsonar.host.url=' + env.SONAR_UR
             }
         }
         stage('Publish'){
@@ -40,14 +41,6 @@ pipeline {
         stage('Report'){
             steps {
                 junit 'target/surefire-reports/**/*.xml'
-            }
-            steps {
-                publishHtml {
-                    reportName 'Mutation Testing'
-                    reportFiles 'index.html'
-                    reportDir 'target/pit-reports/**/*'
-                    allowMissing true
-                }
             }
             archiveArtifacts 'target/*.jar'
         }
