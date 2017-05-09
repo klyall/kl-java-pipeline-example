@@ -44,9 +44,9 @@ pipeline {
             archiveArtifacts 'target/*.jar'
             publishHTML (target: [
                  allowMissing: true
-                 reportDir 'target/pit-reports/**/*'
-                 reportFiles 'index.html'
-                 reportName 'Mutation Testing'
+                 reportDir: 'target/pit-reports/**/*'
+                 reportFiles: 'index.html'
+                 reportName: 'Mutation Testing'
             ])
             publishHTML (target: [
                   allowMissing: false,
