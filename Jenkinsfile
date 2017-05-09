@@ -6,7 +6,7 @@ pipeline {
         }
     }
     environment {
-        MAVEN_OPTS = '' + env.JAVA_OPTS
+        MAVEN_OPTS = "${env.JAVA_OPTS}""
     }
     stages {
         stage('Clean') {
@@ -29,7 +29,7 @@ pipeline {
         }
         stage('Static Analysis'){
             steps {
-                sh 'mvn sonar:sonar  -Dsonar.host.url=' + env.SONAR_URL
+                sh "mvn sonar:sonar  -Dsonar.host.url=${env.SONAR_URL}"
             }
         }
         stage('Publish'){
