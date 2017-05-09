@@ -44,7 +44,9 @@ pipeline {
             archiveArtifacts 'target/*.jar'
             publishHTML (target: [
                  allowMissing: true,
-                 reportDir: 'target/pit-reports/**/*',
+                  alwaysLinkToLastBuild: true,
+                  keepAll: true,
+                  reportDir: 'target/pit-reports/**/*',
                  reportFiles: 'index.html',
                  reportName: 'Mutation Testing'
             ])
