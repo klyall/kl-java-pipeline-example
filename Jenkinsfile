@@ -17,28 +17,29 @@ pipeline {
                 sh 'mvn clean'
             }
         }
-        parallel A: {
+
+        parallel test: {
+            stage('Test'){
+                steps {
+                    sh 'mvn verify'
+                }
+            }
         },
-        B: {
+        mutation: {
+            stage('Mutation Test'){
+                steps {
+                    sh 'mvn org.pitest:pitest-maven:mutationCoverage -DtimestampedReports=false'
+                }
+            }
         },
-        C: {
+        static: {
+            stage('Static Analysis'){
+                steps {
+                    sh "mvn sonar:sonar -Dsonar.host.url=${env.SONAR_URL}"
+                }
+            }
         }
 
-        stage('Unit Test'){
-            steps {
-                sh 'mvn verify'
-            }
-        }
-        stage('Mutation Test'){
-            steps {
-                sh 'mvn org.pitest:pitest-maven:mutationCoverage -DtimestampedReports=false'
-            }
-        }
-        stage('Static Analysis'){
-            steps {
-                sh "mvn sonar:sonar -Dsonar.host.url=${env.SONAR_URL}"
-            }
-        }
         stage('Publish'){
             steps {
                 sh 'mvn install -Dmaven.test.skip=true'
