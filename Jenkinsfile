@@ -41,6 +41,15 @@ pipeline {
             steps {
                 junit 'target/surefire-reports/**/*.xml'
             }
+            steps {
+                publishHtml {
+                    reportName 'Mutation Testing'
+                    reportFiles 'index.html'
+                    reportDir 'target/pit-reports/**/*'
+                    allowMissing true
+                }
+            }
+            archiveArtifacts 'target/*.jar'
         }
     }
 }
