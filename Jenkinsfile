@@ -17,6 +17,13 @@ pipeline {
                 sh 'mvn clean'
             }
         }
+        parallel A: {
+        },
+        B: {
+        },
+        C: {
+        }
+
         stage('Unit Test'){
             steps {
                 sh 'mvn verify'
