@@ -42,11 +42,11 @@ pipeline {
         always {
             junit 'target/surefire-reports/**/*.xml'
             archiveArtifacts 'target/*.jar'
-            step([$class: 'PitPublisher',
-                mutationStatsFile: 'target/pit-reports/mutations.xml',
-                minimumKillRatio: 50.00,
-                killRatioMustImprove: true
-            ])
+//            step([$class: 'PitPublisher',
+//                mutationStatsFile: 'target/pit-reports/mutations.xml',
+//                minimumKillRatio: 50.00,
+//                killRatioMustImprove: true
+//            ])
             publishHTML (target: [
                  allowMissing: true,
                  alwaysLinkToLastBuild: true,
