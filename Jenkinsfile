@@ -22,6 +22,11 @@ pipeline {
                 sh 'mvn test'
             }
         }
+        stage('Mutation Test'){
+            steps {
+                sh 'mvn org.pitest:pitest-maven:mutationCoverage'
+            }
+        }
         stage('Report'){
             steps {
                 junit 'target/surefire-reports/**/*.xml'
