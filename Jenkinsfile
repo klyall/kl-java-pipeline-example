@@ -19,12 +19,22 @@ pipeline {
         }
         stage('Unit Test'){
             steps {
-                sh 'mvn test'
+                sh 'mvn verify'
             }
         }
         stage('Mutation Test'){
             steps {
                 sh 'mvn org.pitest:pitest-maven:mutationCoverage'
+            }
+        }
+        stage('Static Analysis'){
+            steps {
+                sh 'mvn sonar:sonar'
+            }
+        }
+        stage('Publish'){
+            steps {
+                sh 'mvn install -Dmaven.test.skip=true'
             }
         }
         stage('Report'){
