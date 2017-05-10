@@ -27,11 +27,11 @@ pipeline {
                 sh 'mvn org.pitest:pitest-maven:mutationCoverage -DtimestampedReports=false'
             }
         }
-//        stage('Static Analysis'){
-//            steps {
-//                sh "mvn sonar:sonar -Dsonar.host.url=${env.SONAR_URL}"
-//            }
-//        }
+        stage('Static Analysis'){
+            steps {
+                sh "mvn sonar:sonar -Dsonar.host.url=${env.SONAR_URL}"
+            }
+        }
         stage('Publish'){
             steps {
                 sh 'mvn install -Dmaven.test.skip=true'
