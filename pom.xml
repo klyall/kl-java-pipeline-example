@@ -13,6 +13,7 @@
         <jacoco.it.file>${basedir}/target/jacoco-it.exec</jacoco.it.file>
 
         <jacoco-maven-plugin.version>0.7.7.201606060606</jacoco-maven-plugin.version>
+        <maven-surefire-plugin.version>2.20</maven-surefire-plugin.version>
     </properties>
 
     <dependencies>
@@ -115,6 +116,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-surefire-plugin</artifactId>
+                    <version>${maven-surefire-plugin.version}</version>
                     <configuration>
                         <excludes>
                             <exclude>**/*IntegrationTest.java</exclude>
@@ -166,92 +168,8 @@
                 <artifactId>maven-surefire-plugin</artifactId>
             </plugin>
             <plugin>
-                <groupId>org.jacoco</groupId>
-                <artifactId>jacoco-maven-plugin</artifactId>
-                <version>${jacoco-maven-plugin.version}</version>
-                <executions>
-                    <execution>
-                        <id>jacoco-prepare-agent-unit-tests</id>
-                        <phase>initialize</phase>
-                        <goals>
-                            <goal>prepare-agent</goal>
-                        </goals>
-                        <configuration>
-                            <propertyName>jacoco.agent.argLine</propertyName>
-                            <destFile>${jacoco.unit.file}</destFile>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>jacoco-prepare-agent-integration-tests</id>
-                        <phase>pre-integration-test</phase>
-                        <goals>
-                            <goal>prepare-agent</goal>
-                        </goals>
-                        <configuration>
-                            <propertyName>jacoco.agent.argLine</propertyName>
-                            <destFile>${jacoco.it.file}</destFile>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>jacoco-report-unit-tests</id>
-                        <phase>test</phase>
-                        <goals>
-                            <goal>report</goal>
-                        </goals>
-                        <configuration>
-                            <dataFile>${jacoco.unit.file}</dataFile>
-                            <outputDirectory>${project.build.directory}/coverage/unit-tests</outputDirectory>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>jacoco-report-integration-tests</id>
-                        <phase>post-integration-test</phase>
-                        <goals>
-                            <goal>report</goal>
-                        </goals>
-                        <configuration>
-                            <dataFile>${jacoco.it.file}</dataFile>
-                            <outputDirectory>${project.build.directory}/coverage/integration-tests</outputDirectory>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <configuration>
-                    <excludes>
-                        <exclude>**/*IntegrationTest.java</exclude>
-                        <exclude>**/*IT.java</exclude>
-                        <exclude>**/TestCollector.java</exclude>
-                    </excludes>
-                    <parallel>methods</parallel>
-                    <threadCount>10</threadCount>
-                    <argLine>${jacoco.agent.argLine}
-                    </argLine>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>integration-test</id>
-                        <goals>
-                            <goal>test</goal>
-                        </goals>
-                        <phase>integration-test</phase>
-                        <configuration>
-                            <excludes>
-                                <exclude>none</exclude>
-                            </excludes>
-                            <includes>
-                                <include>**/*IntegrationTest.java</include>
-                                <include>**/*IT.java</include>
-                            </includes>
-                            <parallel>methods</parallel>
-                            <threadCount>10</threadCount>
-                            <argLine>${jacoco.agent.argLine}
-                            </argLine>
-                        </configuration>
-                    </execution>
-                </executions>
             </plugin>
             <plugin>
                 <groupId>org.pitest</groupId>
