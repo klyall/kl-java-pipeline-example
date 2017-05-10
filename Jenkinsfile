@@ -15,11 +15,9 @@ pipeline {
                 sh 'mvn --version'
                 sh 'java -version'
                 sh 'mvn clean'
-                sh 'ping -c 5 sonar-tfc.sicloud.atos.net'
-                sh 'curl $SONAR_URL'
             }
         }
-        stage('Unit Test'){
+        stage('Test'){
             steps {
                 sh 'mvn verify -P coverage'
             }
