@@ -21,7 +21,7 @@ pipeline {
         }
         stage('Unit Test'){
             steps {
-                sh 'mvn verify'
+                sh 'mvn verify -P coverage'
             }
         }
         stage('Mutation Test'){
@@ -36,7 +36,7 @@ pipeline {
         }
         stage('Publish'){
             steps {
-                sh 'mvn install -Dmaven.test.skip=true'
+                sh 'mvn clean install -Dmaven.test.skip=true'
             }
         }
     }
