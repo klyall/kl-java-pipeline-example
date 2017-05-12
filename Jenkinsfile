@@ -16,7 +16,7 @@ pipeline {
                 sh 'mvn --version'
                 sh 'java -version'
                 sh 'mvn clean'
-                sh 'curl $SONAR_URL/batch_bootstrap/index'
+                sh 'curl $SONAR_URL/batch_bootstrap/index -v'
                 sh 'curl $SONAR_URL'
             }
         }
