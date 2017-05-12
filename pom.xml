@@ -9,6 +9,9 @@
 
     <properties>
         <java.version>1.8</java.version>
+        <maven.compiler.source>${java.version}</maven.compiler.source>
+        <maven.compiler.target>${java.version}</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <jacoco.unit.file>${basedir}/target/jacoco-unit.exec</jacoco.unit.file>
         <jacoco.it.file>${basedir}/target/jacoco-it.exec</jacoco.it.file>
 
@@ -30,21 +33,18 @@
             <version>1.10.19</version>
             <scope>test</scope>
         </dependency>
+        <!--<dependency>-->
+            <!--<groupId>org.sonarsource.sonarqube</groupId>-->
+            <!--<artifactId>sonar-batch-shaded</artifactId>-->
+            <!--<version>5.4</version>-->
+            <!--&lt;!&ndash;<scope>provided</scope>&ndash;&gt;-->
+        <!--</dependency>-->
     </dependencies>
 
 
     <build>
         <pluginManagement>
             <plugins>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-compiler-plugin</artifactId>
-                    <version>${maven-compiler-plugin.version}</version>
-                    <configuration>
-                        <source>${java.version}</source>
-                        <target>${java.version}</target>
-                    </configuration>
-                </plugin>
                 <plugin>
                     <groupId>external.atlassian.jgitflow</groupId>
                     <artifactId>jgitflow-maven-plugin</artifactId>
@@ -158,8 +158,9 @@
 
         <plugins>
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
+                <groupId>org.sonarsource.sonarqube</groupId>
+                <artifactId>sonar-batch-shaded</artifactId>
+                <version>5.4</version>
             </plugin>
             <plugin>
                 <groupId>external.atlassian.jgitflow</groupId>
