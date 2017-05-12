@@ -33,12 +33,6 @@
             <version>1.10.19</version>
             <scope>test</scope>
         </dependency>
-        <!--<dependency>-->
-            <!--<groupId>org.sonarsource.sonarqube</groupId>-->
-            <!--<artifactId>sonar-batch-shaded</artifactId>-->
-            <!--<version>5.4</version>-->
-            <!--&lt;!&ndash;<scope>provided</scope>&ndash;&gt;-->
-        <!--</dependency>-->
     </dependencies>
 
 
@@ -157,11 +151,6 @@
         </pluginManagement>
 
         <plugins>
-            <plugin>
-                <groupId>org.sonarsource.sonarqube</groupId>
-                <artifactId>sonar-batch-shaded</artifactId>
-                <version>5.4</version>
-            </plugin>
             <plugin>
                 <groupId>external.atlassian.jgitflow</groupId>
                 <artifactId>jgitflow-maven-plugin</artifactId>
