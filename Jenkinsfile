@@ -15,7 +15,6 @@ pipeline {
                 sh 'env | sort'
                 sh 'mvn --version'
                 sh 'java -version'
-                sh 'whoami'
                 sh 'ls -al /root/.m2/' 
                 sh 'mvn clean'
                 sh 'curl $SONAR_URL/batch_bootstrap/index -v'
