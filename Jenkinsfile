@@ -2,11 +2,12 @@ pipeline {
     agent {
         docker {
             image 'maven:3.3.9-jdk-8'
-            args '-v /home/jenkins/.m2:/root/.m2'
+            args '-v /var/local/maven:/var/maven'
         }
     }
     environment {
-        MAVEN_OPTS = "${env.JAVA_OPTS}"
+        MAVEN_CONFIG = "/var/maven/.m2"
+        MAVEN_OPTS = "-Duser.home=/var/maven ${env.JAVA_OPTS}"
         JAVA_TOOL_OPTIONS = "${env.JAVA_OPTS}"
     }
     stages {
@@ -15,8 +16,6 @@ pipeline {
                 sh 'env | sort'
                 sh 'mvn --version'
                 sh 'java -version'
-                sh 'ls -al /root' 
-                sh 'ls -al /root/.m2/' 
                 sh 'mvn clean'
                 sh 'curl $SONAR_URL/batch_bootstrap/index -v'
                 sh 'curl $SONAR_URL'
