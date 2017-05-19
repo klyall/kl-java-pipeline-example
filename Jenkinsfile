@@ -7,8 +7,8 @@ pipeline {
     }
     environment {
         MAVEN_CONFIG = "/var/maven/.m2"
-        MAVEN_OPTS = "-Duser.home=/var/maven -Dsonar.login=${env.SONAR_AUTH_TOKEN} ${env.JAVA_OPTS}"
-        JAVA_TOOL_OPTIONS = "-Dsonar.login=${env.SONAR_AUTH_TOKEN} ${env.JAVA_OPTS}"
+        MAVEN_OPTS = "-Duser.home=/var/maven ${env.JAVA_OPTS}"
+        JAVA_TOOL_OPTIONS = "${env.JAVA_OPTS}"
     }
     stages {
         stage('Clean') {
@@ -31,7 +31,7 @@ pipeline {
 //        }
         stage('Static Analysis'){
             steps {
-                sh "mvn clean install -Dmaven.test.failure.ignore=true -P coverage sonar:sonar -Dsonar.login=87fc51903bd48c28eafe2e984f8306f053df7773"
+                sh "mvn clean install -Dmaven.test.failure.ignore=true -P coverage sonar:sonar -Dsonar.host.url=${env.SONAR_HOST_URL} -Dsonar.login=${env.SONAR_AUTH_TOKEN} "
             }
         }
 //        stage('Publish'){
