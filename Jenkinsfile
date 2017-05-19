@@ -56,7 +56,7 @@ pipeline {
         }
         stage('Static Analysis'){
             steps {
-                sh "mvn clean install -Dmaven.test.failure.ignore=true -P coverage sonar:sonar"
+                sh "mvn install -Dmaven.test.failure.ignore=true -P coverage sonar:sonar"
             }
         }
         stage('Publish'){
