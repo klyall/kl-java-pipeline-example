@@ -34,21 +34,16 @@ pipeline {
                 sh "mvn clean install -Dmaven.test.failure.ignore=true -P coverage sonar:sonar"
             }
         }
-//        stage('Publish'){
-//            steps {
-//                sh 'mvn clean install -Dmaven.test.skip=true'
-//            }
-//        }
+        stage('Publish'){
+            steps {
+                sh 'mvn clean install -Dmaven.test.skip=true'
+            }
+        }
     }
     post {
         always {
             junit 'target/surefire-reports/**/*.xml'
             archiveArtifacts 'target/*.jar'
-//            step([$class: 'PitPublisher',
-//                mutationStatsFile: 'target/pit-reports/mutations.xml',
-//                minimumKillRatio: 50.00,
-//                killRatioMustImprove: true
-//            ])
             publishHTML (target: [
                  allowMissing: true,
                  alwaysLinkToLastBuild: true,
@@ -72,6 +67,7 @@ pipeline {
                   reportDir: 'target/coverage/integration-tests',
                   reportFiles: 'index.html',
                   reportName: "Integration Testing Coverage Report"
-            ])        }
+            ])
+        }
     }
 }
