@@ -1,29 +1,21 @@
 package com.lyall.example;
 
-import java.util.Optional;
-
 public class Greeter {
 
     private static final String DEFAULT_NAME = "World";
 
     public String hello() {
-        return generateHelloMessage(Optional.empty());
+        return generateHelloMessage(DEFAULT_NAME);
     }
 
     public String hello(String name) {
-        return generateHelloMessage(Optional.of(name));
+        return generateHelloMessage(name);
     }
 
-    private String generateHelloMessage(Optional<String> name) {
-        String messageName = DEFAULT_NAME;
-
-        if (name.isPresent()) {
-            messageName = name.get();
-        }
-
+    private String generateHelloMessage(String name) {
         untestableMethod();
 
-        return String.format("Hello %s!", messageName);
+        return String.format("Hello %s!", name);
     }
 
     private void untestableMethod() {
