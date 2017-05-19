@@ -7,7 +7,7 @@ pipeline {
     }
     environment {
         MAVEN_CONFIG = "/var/maven/.m2"
-        MAVEN_OPTS = "-Duser.home=/var/maven -Dsonar.logon=${env.SONAR_AUTH_TOKEN} ${env.JAVA_OPTS}"
+        MAVEN_OPTS = "-Duser.home=/var/maven -Dsonar.login=${env.SONAR_AUTH_TOKEN} ${env.JAVA_OPTS}"
         JAVA_TOOL_OPTIONS = "${env.JAVA_OPTS}"
     }
     stages {
