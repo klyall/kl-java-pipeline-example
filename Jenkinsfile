@@ -22,11 +22,36 @@ pipeline {
         stage('Test'){
             steps {
                 sh 'mvn verify -P coverage'
+                junit 'target/surefire-reports/**/*.xml'
+                publishHTML (target: [
+                      allowMissing: false,
+                      alwaysLinkToLastBuild: false,
+                      keepAll: true,
+                      reportDir: 'target/coverage/unit-tests',
+                      reportFiles: 'index.html',
+                      reportName: "Unit Testing Coverage Report"
+                ])
+                publishHTML (target: [
+                      allowMissing: false,
+                      alwaysLinkToLastBuild: false,
+                      keepAll: true,
+                      reportDir: 'target/coverage/integration-tests',
+                      reportFiles: 'index.html',
+                      reportName: "Integration Testing Coverage Report"
+                ])
             }
         }
         stage('Mutation Test'){
             steps {
                 sh 'mvn org.pitest:pitest-maven:mutationCoverage -DtimestampedReports=false'
+                publishHTML (target: [
+                     allowMissing: true,
+                     alwaysLinkToLastBuild: true,
+                     keepAll: true,
+                     reportDir: 'target/pit-reports',
+                     reportFiles: 'index.html',
+                     reportName: 'PIT Report'
+                ])
             }
         }
         stage('Static Analysis'){
@@ -37,37 +62,8 @@ pipeline {
         stage('Publish'){
             steps {
                 sh 'mvn clean install -Dmaven.test.skip=true'
+                archiveArtifacts 'target/*.jar'
             }
-        }
-    }
-    post {
-        always {
-            junit 'target/surefire-reports/**/*.xml'
-            archiveArtifacts 'target/*.jar'
-            publishHTML (target: [
-                 allowMissing: true,
-                 alwaysLinkToLastBuild: true,
-                 keepAll: true,
-                 reportDir: 'target/pit-reports',
-                 reportFiles: 'index.html',
-                 reportName: 'PIT Report'
-            ])
-            publishHTML (target: [
-                  allowMissing: false,
-                  alwaysLinkToLastBuild: false,
-                  keepAll: true,
-                  reportDir: 'target/coverage/unit-tests',
-                  reportFiles: 'index.html',
-                  reportName: "Unit Testing Coverage Report"
-            ])
-            publishHTML (target: [
-                  allowMissing: false,
-                  alwaysLinkToLastBuild: false,
-                  keepAll: true,
-                  reportDir: 'target/coverage/integration-tests',
-                  reportFiles: 'index.html',
-                  reportName: "Integration Testing Coverage Report"
-            ])
         }
     }
 }
