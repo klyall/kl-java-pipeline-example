@@ -19,26 +19,26 @@ pipeline {
                 sh 'mvn clean'
             }
         }
-        stage('Test'){
-            steps {
-                sh 'mvn verify -P coverage'
-            }
-        }
-        stage('Mutation Test'){
-            steps {
-                sh 'mvn org.pitest:pitest-maven:mutationCoverage -DtimestampedReports=false'
-            }
-        }
+//        stage('Test'){
+//            steps {
+//                sh 'mvn verify -P coverage'
+//            }
+//        }
+//        stage('Mutation Test'){
+//            steps {
+//                sh 'mvn org.pitest:pitest-maven:mutationCoverage -DtimestampedReports=false'
+//            }
+//        }
         stage('Static Analysis'){
             steps {
-                sh "mvn clean install -Dmaven.test.failure.ignore=true -P coverage sonar:sonar -X"
+                sh "mvn clean install -Dmaven.test.failure.ignore=true -P coverage sonar:sonar -Dsonar.login=87fc51903bd48c28eafe2e984f8306f053df7773"
             }
         }
-        stage('Publish'){
-            steps {
-                sh 'mvn clean install -Dmaven.test.skip=true'
-            }
-        }
+//        stage('Publish'){
+//            steps {
+//                sh 'mvn clean install -Dmaven.test.skip=true'
+//            }
+//        }
     }
     post {
         always {
