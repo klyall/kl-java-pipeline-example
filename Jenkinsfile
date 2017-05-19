@@ -19,19 +19,19 @@ pipeline {
                 sh 'mvn clean'
             }
         }
-//        stage('Test'){
-//            steps {
-//                sh 'mvn verify -P coverage'
-//            }
-//        }
-//        stage('Mutation Test'){
-//            steps {
-//                sh 'mvn org.pitest:pitest-maven:mutationCoverage -DtimestampedReports=false'
-//            }
-//        }
+        stage('Test'){
+            steps {
+                sh 'mvn verify -P coverage'
+            }
+        }
+        stage('Mutation Test'){
+            steps {
+                sh 'mvn org.pitest:pitest-maven:mutationCoverage -DtimestampedReports=false'
+            }
+        }
         stage('Static Analysis'){
             steps {
-                sh "mvn clean install -Dmaven.test.failure.ignore=true -P coverage sonar:sonar -Dsonar.host.url=${env.SONAR_HOST_URL} -Dsonar.login=${env.SONAR_AUTH_TOKEN} "
+                sh "mvn clean install -Dmaven.test.failure.ignore=true -P coverage sonar:sonar"
             }
         }
 //        stage('Publish'){
