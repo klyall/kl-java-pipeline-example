@@ -42,7 +42,7 @@ pipeline {
         stage('Publish'){
             steps {
                 sh 'mvn clean deploy -Dmaven.test.skip=true'
-                archiveArtifacts 'target/*.jar'
+                archiveArtifacts '**/target/*.jar'
             }
         }
     }
