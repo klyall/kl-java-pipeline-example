@@ -1,6 +1,6 @@
 package com.lyall.example2;
 
-public class Greeter {
+public class Greeter2 {
 
     private static final String DEFAULT_NAME = "World";
 
