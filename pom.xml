@@ -195,52 +195,6 @@
                     <plugin>
                         <groupId>org.jacoco</groupId>
                         <artifactId>jacoco-maven-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>jacoco-prepare-agent-unit-tests</id>
-                                <phase>initialize</phase>
-                                <goals>
-                                    <goal>prepare-agent</goal>
-                                </goals>
-                                <configuration>
-                                    <propertyName>jacoco.agent.argLine</propertyName>
-                                    <destFile>${jacoco.unit.file}</destFile>
-                                </configuration>
-                            </execution>
-                            <execution>
-                                <id>jacoco-prepare-agent-integration-tests</id>
-                                <phase>pre-integration-test</phase>
-                                <goals>
-                                    <goal>prepare-agent</goal>
-                                </goals>
-                                <configuration>
-                                    <propertyName>jacoco.agent.argLine</propertyName>
-                                    <destFile>${jacoco.it.file}</destFile>
-                                </configuration>
-                            </execution>
-                            <execution>
-                                <id>jacoco-report-unit-tests</id>
-                                <phase>test</phase>
-                                <goals>
-                                    <goal>report</goal>
-                                </goals>
-                                <configuration>
-                                    <dataFile>${jacoco.unit.file}</dataFile>
-                                    <outputDirectory>${project.build.directory}/coverage/unit-tests</outputDirectory>
-                                </configuration>
-                            </execution>
-                            <execution>
-                                <id>jacoco-report-integration-tests</id>
-                                <phase>post-integration-test</phase>
-                                <goals>
-                                    <goal>report</goal>
-                                </goals>
-                                <configuration>
-                                    <dataFile>${jacoco.it.file}</dataFile>
-                                    <outputDirectory>${project.build.directory}/coverage/integration-tests</outputDirectory>
-                                </configuration>
-                            </execution>
-                        </executions>
                     </plugin>
                 </plugins>
             </build>
