@@ -9,6 +9,26 @@
 
     <packaging>pom</packaging>
 
+    <scm>
+        <connection>scm:git:https://github.com/klyall/kl-java-pipeline-example.git</connection>
+        <tag>HEAD</tag>
+    </scm>
+
+    <distributionManagement>
+        <repository>
+            <id>deployment</id>
+            <name>Releases</name>
+            <url>${nexus.url}/releases/</url>
+            <layout>default</layout>
+        </repository>
+        <snapshotRepository>
+            <id>deployment</id>
+            <name>Snapshots</name>
+            <url>${nexus.url}/snapshots/</url>
+            <layout>default</layout>
+        </snapshotRepository>
+    </distributionManagement>
+
     <modules>
         <module>project1</module>
         <module>project2</module>
