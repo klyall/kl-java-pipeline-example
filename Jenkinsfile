@@ -60,7 +60,7 @@ pipeline {
         }
         stage('Static Analysis'){
             steps {
-                sh "mvn install -Dmaven.test.failure.ignore=true -P coverage sonar:sonar"
+                sh "mvn install -Dmaven.test.failure.ignore=true -P coverage sonar:sonar -Dsonar.pitest.mode=reuseReport"
             }
         }
     }
