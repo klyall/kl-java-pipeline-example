@@ -177,6 +177,9 @@
                     <targetTests>
                         <param>com.lyall*</param>
                     </targetTests>
+                    <outputFormats>
+                        <outputFormat>XML</outputFormat>
+                    </outputFormats>
                 </configuration>
             </plugin>
             <plugin>
