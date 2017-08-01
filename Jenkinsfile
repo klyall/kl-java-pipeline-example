@@ -45,18 +45,23 @@ pipeline {
                 ])
             }
         }
-                stage('Mutation Test'){
-                    steps {
-                        sh 'mvn org.pitest:pitest-maven:mutationCoverage -DtimestampedReports=false'
-                        publishHTML (target: [
-                             allowMissing: true,
-                             alwaysLinkToLastBuild: true,
-                             keepAll: true,
-                             reportDir: '**/target/pit-reports',
-                             reportFiles: 'index.html',
-                             reportName: 'PIT Report'
-                        ])
-                    }
-                }
+        stage('Mutation Test'){
+            steps {
+                sh 'mvn org.pitest:pitest-maven:mutationCoverage -DtimestampedReports=false'
+                publishHTML (target: [
+                     allowMissing: true,
+                     alwaysLinkToLastBuild: true,
+                     keepAll: true,
+                     reportDir: '**/target/pit-reports',
+                     reportFiles: 'index.html',
+                     reportName: 'PIT Report'
+                ])
+            }
+        }
+        stage('Static Analysis'){
+            steps {
+                sh "mvn install -Dmaven.test.failure.ignore=true -P coverage sonar:sonar"
+            }
+        }
     }
 }
