@@ -5,6 +5,10 @@ pipeline {
             args '-v /var/local/maven:/var/maven'
         }
     }
+    options {
+        // Keep the 10 most recent builds
+        buildDiscarder(logRotator(numToKeepStr:'10'))
+    }
     environment {
         MAVEN_CONFIG = "/var/maven/.m2"
         MAVEN_OPTS = "-Duser.home=/var/maven ${env.JAVA_OPTS}"
