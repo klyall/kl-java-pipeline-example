@@ -25,20 +25,5 @@ pipeline {
                 junit 'target/surefire-reports/**/*.xml'
             }
         }
-        stage('Mutation Test'){
-            steps {
-                sh 'mvn org.pitest:pitest-maven:mutationCoverage -DtimestampedReports=false'
-            }
-        }
-        stage('Static Analysis'){
-            steps {
-                sh "mvn install -Dmaven.test.failure.ignore=true -P coverage sonar:sonar"
-            }
-        }
-        stage('Publish'){
-            steps {
-                sh 'mvn clean deploy -Dmaven.test.skip=true'
-            }
-        }
     }
 }
