@@ -1,21 +1,14 @@
-package com.lyall.example2.test;
+package com.lyall.example.test;
 
-import com.lyall.example2.Greeter;
+import com.lyall.example.Greeter;
 import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
-public class GreeterTest {
-
-    @Test
-    public void shouldGiveDefaultMessage() {
-        Greeter greeter = new Greeter();
-        String message = greeter.hello();
-
-        assertThat("Message", message, is(equalTo("Hello World!")));
-    }
+// Not really an integration test but here to show some code coverage
+public class GreeterIntegrationTest {
 
     @Test
     public void shouldGiveCustomisedMessage() {
