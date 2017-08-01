@@ -27,40 +27,22 @@ pipeline {
             steps {
                 sh 'mvn verify -P coverage'
                 junit '**/target/surefire-reports/*.xml'
-                publishHTML (target: [
-                      allowMissing: true,
-                      alwaysLinkToLastBuild: false,
-                      keepAll: true,
-                      reportDir: '**/target/coverage/unit-tests',
-                      reportFiles: 'index.html',
-                      reportName: "Unit Testing Coverage Report"
-                ])
-                publishHTML (target: [
-                      allowMissing: true,
-                      alwaysLinkToLastBuild: false,
-                      keepAll: true,
-                      reportDir: '**/target/coverage/integration-tests',
-                      reportFiles: 'index.html',
-                      reportName: "Integration Testing Coverage Report"
-                ])
             }
         }
         stage('Mutation Test'){
             steps {
                 sh 'mvn org.pitest:pitest-maven:mutationCoverage -DtimestampedReports=false'
-                publishHTML (target: [
-                     allowMissing: true,
-                     alwaysLinkToLastBuild: true,
-                     keepAll: true,
-                     reportDir: '**/target/pit-reports',
-                     reportFiles: 'index.html',
-                     reportName: 'PIT Report'
-                ])
             }
         }
         stage('Static Analysis'){
             steps {
                 sh "mvn install -Dmaven.test.failure.ignore=true -P coverage sonar:sonar -Dsonar.pitest.mode=reuseReport"
+            }
+        }
+        stage('Publish'){
+            steps {
+                sh 'mvn clean deploy -Dmaven.test.skip=true'
+                archiveArtifacts 'target/*.jar'
             }
         }
     }
