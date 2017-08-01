@@ -22,7 +22,7 @@ pipeline {
         stage('Test'){
             steps {
                 sh 'mvn verify -P coverage'
-                junit 'target/surefire-reports/**/*.xml'
+                junit '**/target/surefire-reports/**/*.xml'
             }
         }
     }
