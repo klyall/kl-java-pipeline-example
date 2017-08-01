@@ -23,6 +23,22 @@ pipeline {
             steps {
                 sh 'mvn verify -P coverage'
                 junit '**/target/surefire-reports/**/*.xml'
+                publishHTML (target: [
+                      allowMissing: true,
+                      alwaysLinkToLastBuild: false,
+                      keepAll: true,
+                      reportDir: '**/target/coverage/unit-tests',
+                      reportFiles: 'index.html',
+                      reportName: "Unit Testing Coverage Report"
+                ])
+                publishHTML (target: [
+                      allowMissing: true,
+                      alwaysLinkToLastBuild: false,
+                      keepAll: true,
+                      reportDir: '**/target/coverage/integration-tests',
+                      reportFiles: 'index.html',
+                      reportName: "Integration Testing Coverage Report"
+                ])
             }
         }
     }
