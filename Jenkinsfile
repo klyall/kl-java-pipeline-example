@@ -27,7 +27,7 @@ pipeline {
                       allowMissing: false,
                       alwaysLinkToLastBuild: false,
                       keepAll: true,
-                      reportDir: 'target/coverage/unit-tests',
+                      reportDir: '**/target/coverage/unit-tests',
                       reportFiles: 'index.html',
                       reportName: "Unit Testing Coverage Report"
                 ])
@@ -35,7 +35,7 @@ pipeline {
                       allowMissing: false,
                       alwaysLinkToLastBuild: false,
                       keepAll: true,
-                      reportDir: 'target/coverage/integration-tests',
+                      reportDir: '**/target/coverage/integration-tests',
                       reportFiles: 'index.html',
                       reportName: "Integration Testing Coverage Report"
                 ])
@@ -48,7 +48,7 @@ pipeline {
                      allowMissing: true,
                      alwaysLinkToLastBuild: true,
                      keepAll: true,
-                     reportDir: 'target/pit-reports',
+                     reportDir: '**/target/pit-reports',
                      reportFiles: 'index.html',
                      reportName: 'PIT Report'
                 ])
@@ -56,13 +56,13 @@ pipeline {
         }
         stage('Static Analysis'){
             steps {
-                sh "mvn install -Dmaven.test.failure.ignore=true -P coverage sonar:sonar -X"
+                sh "mvn install -Dmaven.test.failure.ignore=true -P coverage sonar:sonar"
             }
         }
         stage('Publish'){
             steps {
-                sh 'mvn clean install -Dmaven.test.skip=true'
-                archiveArtifacts 'target/*.jar'
+                sh 'mvn clean deploy -Dmaven.test.skip=true'
+                archiveArtifacts '**/target/*.jar'
             }
         }
     }
