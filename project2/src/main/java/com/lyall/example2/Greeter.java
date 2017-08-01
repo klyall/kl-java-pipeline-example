@@ -1,4 +1,4 @@
-package com.lyall.example;
+package com.lyall.example2;
 
 public class Greeter {
 
