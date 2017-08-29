@@ -21,6 +21,7 @@ pipeline {
                 sh 'mvn --version'
                 sh 'java -version'
                 sh 'mvn clean'
+                sh 'cat /etc/resolv.conf'
                 sh 'wget ${NEXUS_HOST}/nexus/'
                 sh 'wget ${SONAR_HOST}/'
             }
