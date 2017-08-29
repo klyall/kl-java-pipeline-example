@@ -21,6 +21,8 @@ pipeline {
                 sh 'mvn --version'
                 sh 'java -version'
                 sh 'mvn clean'
+                sh 'curl ${NEXUS_HOST}/nexus/'
+                sh 'curl ${SONAR_HOST}/'
             }
         }
         stage('Test'){
