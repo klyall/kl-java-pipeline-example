@@ -21,8 +21,8 @@ pipeline {
                 sh 'mvn --version'
                 sh 'java -version'
                 sh 'mvn clean'
-                sh 'ping -c 4 nexus-tfc.sicloud.atos.net'
-                sh 'ping -c 4 sonar-tfc.sicloud.atos.net'
+                sh 'wget ${NEXUS_HOST}/nexus/'
+                sh 'wget ${SONAR_HOST}/'
             }
         }
         stage('Test'){
