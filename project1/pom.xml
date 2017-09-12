@@ -5,7 +5,7 @@
     <parent>
         <groupId>com.lyall.example</groupId>
         <artifactId>kl-java-pipeline-example</artifactId>
-        <version>1.0.3-SNAPSHOT</version>
+        <version>1.0.2</version>
     </parent>
 
     <artifactId>project1</artifactId>
